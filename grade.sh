@@ -12,9 +12,9 @@ echo 'Finished cloning'
 # step 2 - check for relevant files
 ## check for occurences
 find student-submission > find_results.txt
-grep -c "ListExamples.java" find_results.txt
+GREP = `grep -c "ListExamples.java" find_results.txt`
 
-if ! [[ $? -eq 0 ]]
+if ! [[ $GREP == 0 ]]
 then
     echo 'ListExamples.java found'
 else
