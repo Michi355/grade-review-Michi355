@@ -3,12 +3,13 @@ CPATH='.:lib/hamcrest-core-1.3.jar:lib/junit-4.13.2.jar'
 rm -rf student-submission
 rm -rf grading-area
 
+# step 1 - clone relevant to specific directory
 mkdir grading-area
 
 git clone $1 student-submission
 echo 'Finished cloning'
 
-# step 1 - check for relevant files
+# step 2 - check for relevant files
 if [[ -e student-submission/*/ListExamples.java ]]
 then
     echo 'ListExamples.java exists'
@@ -23,8 +24,14 @@ else
     exit
 fi
 
-# step 2
+# step 3
+cp student-submission/*/*.java grading-area
 
+# step 4
+if [[ javac grading-area/*.java -eq 1 ]]
+then
+
+fi
 
 # Draw a picture/take notes on the directory structure that's set up after
 # getting to this point
