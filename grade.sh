@@ -23,10 +23,12 @@ fi
 
 # step 3
 find student-submission -name \*.java -exec cp {} grading-area \;
-cp TestListExamples.java grading-area/
+cp TestListExamples.java grading-area
+cp -r lib grading-area
 
 # step 4
-javac -cp $CPATH grading-area/*.java > javac_output.txt
+cd grading-area
+javac -cp $CPATH *.java > javac_output.txt
 if [[ $? -eq 0 ]]
 then
     echo 'code successfully compiles'
@@ -36,6 +38,8 @@ else
 fi
 
 # step 5
+pwd
+ls
 java -cp $CPATH org.junit.runner.JUnitCore TestListExamples > test_output.txt
 if [[ $? -eq 0 ]]
 then
