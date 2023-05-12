@@ -12,7 +12,7 @@ echo 'Finished cloning'
 # step 2 - check for relevant files
 ## check for occurences
 find student-submission > find_results.txt
-GREP = `grep -c "ListExamples.java" find_results.txt`
+GREP=`grep -c "ListExamples.java" find_results.txt`
 
 if ! [[ $GREP == 0 ]]
 then
@@ -22,11 +22,11 @@ else
 fi
 
 # step 3
-find student-submission -name "*.java" > find_results_java.txt
-xargs cp grading-area < find_results_java.txt
+find student-submission -name \*.java -exec cp {} grading-area \;
+cp TestListExamples.java grading-area/
 
 # step 4
-javac grading-area *.java > javac_output.txt
+javac -cp $CPATH grading-area/*.java > javac_output.txt
 if [[ $? -eq 0 ]]
 then
     echo 'code successfully compiles'
@@ -36,7 +36,7 @@ else
 fi
 
 # step 5
-java -cp CPATH TestListExamples > test_output.txt
+java -cp $CPATH org.junit.runner.JUnitCore TestListExamples > test_output.txt
 if [[ $? -eq 0 ]]
 then
     echo 'good job :)'
@@ -44,6 +44,7 @@ else
     cat test_output.txt
     exit
 fi
+cd ..
 
 # Draw a picture/take notes on the directory structure that's set up after
 # getting to this point
